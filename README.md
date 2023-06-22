@@ -1,0 +1,1 @@
+# def-amadeus-typescript-dataintegra
