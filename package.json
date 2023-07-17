@@ -12,7 +12,7 @@
     "typescript",
     "default"
   ],
-  "author": "Otávio Monteiro Rossoni",
+  "author": "Dataintegra",
   "license": "ISC",
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.2.0",
