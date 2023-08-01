@@ -1,21 +1,12 @@
 import { FastifyInstance, fastify } from 'fastify'
 import cors from '@fastify/cors'
 
-import { healthCheck } from '../modules/healthCheck/healthCheckRoutes'
+import { healthCheckRoutes } from '../http/controllers/healthCheck/routes'
 
-const app: FastifyInstance = fastify()
-const apiPort: number = Number(process.env.PORT)
+export const app: FastifyInstance = fastify()
 
 app.register(cors, {
   origin: true,
 })
 
-app.register(healthCheck)
-
-app
-  .listen({
-    port: apiPort,
-  })
-  .then(() => {
-    console.log(`HTTP server running on http://localhost:${apiPort}`)
-  })
+app.register(healthCheckRoutes)

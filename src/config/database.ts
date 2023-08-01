@@ -1,7 +1,8 @@
 import { knex as setupKnex, Knex } from 'knex'
 import Oracle from 'oracledb'
+import { env } from '../env'
 
-const databaseClient = process.env.DATABASE_CLIENT
+const databaseClient = env.DATABASE_CLIENT
 const databaseClientOptions = {
   oracle: 'oracledb',
   postgresql: 'pg',
@@ -10,13 +11,13 @@ let databaseConfig: Knex.Config = {}
 
 switch (databaseClient) {
   case databaseClientOptions.oracle:
-    Oracle.initOracleClient({ libDir: process.env.ORACLE_DIR })
+    Oracle.initOracleClient({ libDir: env.ORACLE_DIR })
     databaseConfig = {
       client: databaseClient,
       connection: {
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        connectString: process.env.DB_CONNECTION_STRING,
+        user: env.DB_USER,
+        password: env.DB_PASSWORD,
+        connectString: env.DB_CONNECTION_STRING,
         pool: {
           min: 1,
           max: 50,
@@ -27,7 +28,7 @@ switch (databaseClient) {
   case databaseClientOptions.postgresql:
     databaseConfig = {
       client: databaseClient,
-      connection: process.env.DB_CONNECTION_STRING,
+      connection: env.DB_CONNECTION_STRING,
       pool: {
         min: 1,
         max: 50,
