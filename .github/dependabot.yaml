@@ -4,3 +4,7 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+      time: '07:00'
+    commit-message:
+      prefix: 'npm'
+    
