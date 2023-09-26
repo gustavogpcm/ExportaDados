@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/cors": "8.4.0",
-    "axios": "1.5.0",
+    "axios": "1.5.1",
     "cron": "2.4.4",
     "fastify": "4.23.2",
     "knex": "2.5.1",
