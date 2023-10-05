@@ -22,7 +22,7 @@
     "knex": "2.5.1",
     "oracledb": "6.1.0",
     "pg": "8.11.3",
-    "zod": "3.22.3"
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "2.1.0",
