@@ -18,7 +18,7 @@
     "@fastify/cors": "8.4.0",
     "axios": "1.5.1",
     "cron": "3.1.1",
-    "fastify": "4.24.2",
+    "fastify": "4.24.3",
     "knex": "3.0.1",
     "oracledb": "6.2.0",
     "pg": "8.11.3",
