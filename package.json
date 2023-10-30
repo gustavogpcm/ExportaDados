@@ -17,7 +17,7 @@
   "dependencies": {
     "@fastify/cors": "8.4.1",
     "axios": "1.6.0",
-    "cron": "3.1.5",
+    "cron": "3.1.6",
     "fastify": "4.24.3",
     "knex": "3.0.1",
     "oracledb": "6.2.0",
