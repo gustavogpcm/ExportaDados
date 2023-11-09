@@ -5,6 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "check": "tsc --noEmit",
     "lint": "eslint src --ext .ts --fix",
     "test": "vitest run --dir src/use-cases",
     "build": "tsup src --minify --out-dir build"

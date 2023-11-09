@@ -19,3 +19,6 @@ Caso o banco seja PostgreSQL, são as seguintes:
 - `DB_CONNECTION_STRING`
 
 E por fim, a porta da aplicação, que utiliza a variável `PORT`.
+
+### PM2
+A aplicação já vem com o arquivo `ecosystem.config.ts` configurado para uso do PM2 em máquinas servidoras, portanto, é possível alterar as configurações direto pelo arquivo e executá-lo para rodar o PM2 conforme o configurado.

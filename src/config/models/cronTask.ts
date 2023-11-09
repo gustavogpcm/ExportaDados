@@ -11,7 +11,10 @@ export class CronTask {
   private isTaskRunning = false
   private time: string
 
-  constructor(private task: () => Promise<void>, time?: string) {
+  constructor(
+    private task: () => Promise<void>,
+    time?: string,
+  ) {
     if (time) {
       const isTimeValid = isValidCronExpression(time)
 
