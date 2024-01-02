@@ -1,7 +1,5 @@
-import { send } from 'process'
 import { RecordAssistencialRepository } from '../repositories/record-assistencial-repository'
 import { AssistencialRepository } from '../repositories/search-assistencial-repository'
-import { formatarData } from '../utils/formatDate_yyyy-mm-dd'
 export interface SearchAssistencialDataRequest {
   dataUltimaAlteracao: string
   ids?: string

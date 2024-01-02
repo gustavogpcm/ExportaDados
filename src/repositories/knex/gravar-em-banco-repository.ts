@@ -1,4 +1,3 @@
-import { DrgRegistroIag } from '../../models/Assistencial'
 import { RecordAssistencialRepository } from '../record-assistencial-repository'
 import knex from '../../config/database'
 

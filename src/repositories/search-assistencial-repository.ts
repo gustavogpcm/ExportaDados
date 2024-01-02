@@ -1,4 +1,3 @@
-import { DrgRegistroIag } from '../models/Assistencial'
 
 export interface SearchAssistencialData {
   dataUltimaAlteracao: string
@@ -30,5 +29,4 @@ export interface GetAcessToken {
 }
 export interface AssistencialRepository {
   searchAssistencial(info: SearchAssistencialData): Promise<any>
-  getSequence(): Promise<number>
 }
