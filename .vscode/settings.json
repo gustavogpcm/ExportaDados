@@ -1,7 +1,12 @@
 {
   "editor.codeActionsOnSave": {
+<<<<<<< HEAD
     "source.fixAll.eslint": "explicit",
     "source.addMissingImports": "explicit"
+=======
+    "source.fixAll.eslint": true,
+    "source.addMissingImports": true 
+>>>>>>> 7bf6c5064265e26d9bf3b1f0b38bd6aa0d3ca644
   },
 	"explorer.compactFolders": false
 }

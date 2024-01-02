@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export function formatarData(data) {
   if (data instanceof Date) {
     const dia = String(data.getDate()).padStart(2, '0')
@@ -11,4 +12,17 @@ export function formatarData(data) {
   } else {
     return null
   }
+=======
+function padZero(valor: number): string {
+  return valor.toString().padStart(2, '0')
+}
+
+/** @description Format date to format yyyy-mm-dd */
+export function formatDate(data: Date): string {
+  const ano = data.getFullYear()
+  const mes = padZero(data.getMonth() + 1)
+  const dia = padZero(data.getDate())
+
+  return `${ano}-${mes}-${dia}`
+>>>>>>> 7bf6c5064265e26d9bf3b1f0b38bd6aa0d3ca644
 }
