@@ -1,6 +1,5 @@
 import { CronTask } from './models/cronTask'
 
-import { makeScheduleExampleUseCase } from '../use-cases/factories/make-schedule-example-use-case'
 import { makeSearchAssistencialUseCase } from '../use-cases/factories/make-search-assistencial'
 import { makeGetAcessTokenUseCase } from '../use-cases/factories/make-get-acess-token-use-case'
 
