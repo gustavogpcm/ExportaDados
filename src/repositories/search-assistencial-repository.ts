@@ -26,6 +26,7 @@ export interface GetAcessToken {
   password: string
   origin: string
 }
+
 export interface AssistencialRepository {
   searchAssistencial(info: SearchAssistencialData): Promise<any>
 }

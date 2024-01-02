@@ -7,9 +7,9 @@ export class AxiosGetAcessTokenRepository implements GetAcessTokenRepository {
   async getAcessToken() {
     const apiUrl = env.API_URL_LOGIN
     const data = {
-      userName: '3594-HFR-EXP',
-      password: 'zOiEdNkV+xvw',
-      origin: 'API_DRG',
+      userName: env.API_userName,
+      password: env.API_password,
+      origin: env.API_origin,
     }
     const requestConfig: AxiosRequestConfig = {
       method: 'post',

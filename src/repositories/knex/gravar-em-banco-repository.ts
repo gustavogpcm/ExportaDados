@@ -6,7 +6,6 @@ export class KnexRecordAssistencialRepository
 {
   async recordAssistencial({ send }): Promise<void> {
     try {
-      // console.log(send)
       await knex('TIHFR.DRG_REGISTRO_IAG').insert(send)
       console.log('DrgRegistroIag inserted successfully!')
     } catch (error) {

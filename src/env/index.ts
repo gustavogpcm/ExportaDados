@@ -14,6 +14,9 @@ const envSchema = z.object({
   API_URL_LOGIN: z.string().nullable(),
   API_KEY: z.string().nullable(),
   API_TOKEN: z.string().nullable(),
+  API_userName: z.string().nullable(),
+  API_password: z.string().nullable(),
+  API_origin: z.string().nullable(),
 })
 
 export function loadEnvironmentVariables() {

@@ -132,6 +132,7 @@ export interface DrgRegistroIag {
   datainicial_causaext: Date | null
   datafinal_causaext: Date | null
 }
+
 export interface CAPSDRGREGISTROIAG {
   ID: number
   SITUACAO: string | null
