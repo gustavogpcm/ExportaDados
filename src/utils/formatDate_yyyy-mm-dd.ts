@@ -6,20 +6,9 @@ export function formatarData(data) {
     const hora = String(data.getHours()).padStart(2, '0')
     const minutos = String(data.getMinutes()).padStart(2, '0')
     const segundos = String(data.getSeconds()).padStart(2, '0')
-
-    return `${dia}.${mes}.${ano} ${hora}:${minutos}:${segundos}`
+    const novaData = `${dia}.${mes}.${ano} ${hora}:${minutos}:${segundos}`
+    return novaData
+  } else {
+    return null
   }
-  return data
-}
-
-export function formatarDatas(objeto) {
-  const objetoFormatado = {}
-  for (const chave in objeto) {
-    if (Object.prototype.hasOwnProperty.call(objeto, chave)) {
-      objetoFormatado[chave] = chave.includes('DATA')
-        ? formatarData(objeto[chave])
-        : objeto[chave]
-    }
-  }
-  return objetoFormatado
 }
