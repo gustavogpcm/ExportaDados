@@ -1,8 +1,5 @@
 import 'dotenv/config'
-<<<<<<< HEAD
 import { config } from 'dotenv'
-=======
->>>>>>> 7bf6c5064265e26d9bf3b1f0b38bd6aa0d3ca644
 import { z } from 'zod'
 
 const envSchema = z.object({
@@ -13,7 +10,6 @@ const envSchema = z.object({
   DB_CONNECTION_STRING: z.string().nullable(),
   DB_PASSWORD: z.string().nullable(),
   DB_USER: z.string().nullable(),
-<<<<<<< HEAD
   API_URL_SEARCH: z.string().nullable(),
   API_URL_LOGIN: z.string().nullable(),
   API_KEY: z.string().nullable(),
@@ -40,16 +36,3 @@ export function loadEnvironmentVariables() {
 export const env = loadEnvironmentVariables()
 
 export type EnvironmentVariables = z.infer<typeof envSchema>
-=======
-})
-
-const _env = envSchema.safeParse(process.env)
-
-if (_env.success === false) {
-  console.error('❌ Invalid environment variables', _env.error.format())
-
-  throw new Error('Invalid environment variables')
-}
-
-export const env = _env.data
->>>>>>> 7bf6c5064265e26d9bf3b1f0b38bd6aa0d3ca644

@@ -1,4 +1,3 @@
-
 export interface SearchAssistencialData {
   dataUltimaAlteracao: string
   ids?: string

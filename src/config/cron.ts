@@ -4,7 +4,6 @@ import { makeScheduleExampleUseCase } from '../use-cases/factories/make-schedule
 import { makeSearchAssistencialUseCase } from '../use-cases/factories/make-search-assistencial'
 import { makeGetAcessTokenUseCase } from '../use-cases/factories/make-get-acess-token-use-case'
 
-
 const sheduleAssitencialSearch = makeSearchAssistencialUseCase()
 
 export const assistencialSearch = new CronTask(async () => {
