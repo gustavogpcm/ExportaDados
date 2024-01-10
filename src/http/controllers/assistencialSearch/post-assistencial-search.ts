@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeSearchAssistencialUseCase } from '../../../use-cases/factories/make-search-assistencial'
+import { makeGetAcessTokenUseCase } from '../../../use-cases/factories/make-get-acess-token-use-case'
 
 export async function postAssistencialSearch(
   request: FastifyRequest,
@@ -17,7 +18,8 @@ export async function postAssistencialSearch(
 
   try {
     const searchAssistencial = makeSearchAssistencialUseCase()
-
+    const getAcessTokenUseCase = makeGetAcessTokenUseCase()
+    await getAcessTokenUseCase.execute()
     const assistencialResult = await searchAssistencial.execute({
       dataUltimaAlteracao,
     })
