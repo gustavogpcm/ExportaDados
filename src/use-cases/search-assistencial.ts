@@ -169,7 +169,7 @@ export class SearchAssistencial {
     const assistencial = await this.assistencialRepository.searchAssistencial(
       data,
     )
-
+    console.log('Registrando no banco...')
     for (const registro of assistencial.items) {
       let nome_medico
       let uf_medico
