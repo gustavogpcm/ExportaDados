@@ -412,6 +412,7 @@ export class SearchAssistencial {
         }
       }
     }
+    console.log('Acabou de inserir no banco...')
 
     return
   }
