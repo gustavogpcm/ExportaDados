@@ -11,6 +11,6 @@ export const assistencialSearch = new CronTask(async () => {
   const dataUltimaAlteracao = new Date().toISOString().split('T')[0]
   console.log('A dataUltimaAlteracao no cron: ', dataUltimaAlteracao)
   await sheduleAssitencialSearch.execute({ dataUltimaAlteracao })
-}, '0 35 13 * * *')
+}, '0 45 22 * * *')
 // '0 23 * * * * às 23 horas
 assistencialSearch.start()
