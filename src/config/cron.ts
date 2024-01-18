@@ -8,7 +8,8 @@ const sheduleAssitencialSearch = makeSearchAssistencialUseCase()
 export const assistencialSearch = new CronTask(async () => {
   const getAcessTokenUseCase = makeGetAcessTokenUseCase()
   await getAcessTokenUseCase.execute()
-  const dataUltimaAlteracao = new Date().toISOString().split('T')[0]
+  const currentDate = new Date()
+  const dataUltimaAlteracao = currentDate.toISOString().slice(0, 10)
   console.log('A dataUltimaAlteracao no cron: ', dataUltimaAlteracao)
   await sheduleAssitencialSearch.execute({ dataUltimaAlteracao })
 }, '0 45 22 * * *')
