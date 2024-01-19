@@ -9,10 +9,13 @@ export const assistencialSearch = new CronTask(async () => {
   const getAcessTokenUseCase = makeGetAcessTokenUseCase()
   await getAcessTokenUseCase.execute()
   const currentDate = new Date()
-  console.log('CurrentDate' + currentDate)
-  const dataUltimaAlteracao = currentDate.toISOString().slice(0, 10)
+  console.log('Current Date: ' + currentDate)
+  const year = currentDate.getFullYear()
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0') // Month is 0-indexed
+  const day = String(currentDate.getDate()).padStart(2, '0')
+  const dataUltimaAlteracao = `${year}-${month}-${parseInt(day) - 1}`
   console.log('A dataUltimaAlteracao no cron: ', dataUltimaAlteracao)
   await sheduleAssitencialSearch.execute({ dataUltimaAlteracao })
-}, '0 0 21 * * *')
+}, '0 0 23 * * *')
 // '0 23 * * * * às 23 horas
 assistencialSearch.start()
