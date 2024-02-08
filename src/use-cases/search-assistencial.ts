@@ -418,7 +418,7 @@ export class SearchAssistencial {
                     ? new Date(registro?.causaExterna?.dataFinal)
                     : null,
                 }
-                console.log(send)
+                await writeLog(send)
                 await this.recordAssistencialRepository.recordAssistencial({
                   send,
                 })
@@ -901,7 +901,7 @@ export class SearchAssistencial {
                           ? new Date(registro?.causaExterna?.dataFinal)
                           : null,
                       }
-                      console.log(send)
+                      await writeLog(send)
                       await this.recordAssistencialRepository.recordAssistencial(
                         {
                           send,
@@ -919,7 +919,7 @@ export class SearchAssistencial {
       console.log(e)
     }
 
-    writeLog(
+    await writeLog(
       'Acabou de inserir no banco...' + JSON.stringify(assistencial.items),
     )
 
