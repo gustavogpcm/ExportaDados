@@ -1,4 +1,3 @@
-import { send } from 'process'
 import { RecordAssistencialRepository } from '../repositories/record-assistencial-repository'
 import { AssistencialRepository } from '../repositories/search-assistencial-repository'
 export interface SearchAssistencialDataRequest {
