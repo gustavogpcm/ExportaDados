@@ -1,5 +1,6 @@
 import { RecordAssistencialRepository } from '../repositories/record-assistencial-repository'
 import { AssistencialRepository } from '../repositories/search-assistencial-repository'
+import { writeLog } from '../utils/writeFile'
 export interface SearchAssistencialDataRequest {
   dataUltimaAlteracao: string
   ids?: string
@@ -169,7 +170,8 @@ export class SearchAssistencial {
     const assistencial = await this.assistencialRepository.searchAssistencial(
       data,
     )
-    console.log(JSON.stringify(assistencial))
+    writeLog(JSON.stringify(assistencial))
+    // console.log(JSON.stringify(assistencial))
     console.log('Registrando no banco...')
     try {
       for (const registro of assistencial.items) {
@@ -652,7 +654,7 @@ export class SearchAssistencial {
                         ? new Date(registro?.causaExterna?.dataFinal)
                         : null,
                     }
-                    console.log(send)
+                    await writeLog(send)
                     await this.recordAssistencialRepository.recordAssistencial({
                       send,
                     })
@@ -917,7 +919,7 @@ export class SearchAssistencial {
       console.log(e)
     }
 
-    console.log(
+    writeLog(
       'Acabou de inserir no banco...' + JSON.stringify(assistencial.items),
     )
 
