@@ -170,7 +170,7 @@ export class SearchAssistencial {
     const assistencial = await this.assistencialRepository.searchAssistencial(
       data,
     )
-    writeLog(JSON.stringify(assistencial))
+    await writeLog(JSON.stringify(assistencial))
     // console.log(JSON.stringify(assistencial))
     console.log('Registrando no banco...')
     try {
@@ -924,9 +924,7 @@ export class SearchAssistencial {
       console.log(e)
     }
 
-    await writeLog(
-      'Acabou de inserir no banco...' + JSON.stringify(assistencial.items),
-    )
+    await writeLog(JSON.stringify(assistencial.items))
 
     return
   }

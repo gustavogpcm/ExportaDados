@@ -25,8 +25,8 @@ export async function writeLog(json: any) {
       logger.info(`Dados foram anexados ao arquivo ${fileName} em ${folder}`)
     } catch (err) {
       await fs.promises.writeFile(filePath, json)
-      console.log(`Arquivo ${fileName} foi criado em ${folder}`)
-      logger.info(`Arquivo ${fileName} foi criado em ${folder}`)
+      console.error(`Arquivo ${fileName} foi criado em ${folder}`)
+      logger.error(`Arquivo ${fileName} foi criado em ${folder}`)
     }
   } catch (err) {
     console.log(`Erro ao criar o diretório ou o arquivo: ${err.message}`)
