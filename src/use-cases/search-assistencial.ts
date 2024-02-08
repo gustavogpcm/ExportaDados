@@ -209,9 +209,10 @@ export class SearchAssistencial {
               const CATETERVASCULARCENTRAL_STR =
                 registro.cateterVascularCentral.join('')
               const CAUSAEXTERNA_STR = registro.causaExterna.join('')
-              const seq_paciente =
-                await this.recordAssistencialRepository.getSequence()
+
               if (registro.cidSecundario <= 0) {
+                const seq_paciente =
+                  await this.recordAssistencialRepository.getSequence()
                 const send = {
                   ID: seq_paciente[0].NEXTVAL,
                   ID_INTEGRA: registro.id,
@@ -425,6 +426,8 @@ export class SearchAssistencial {
               } else {
                 for (const itemCidSec of registro.cidSecundario) {
                   if (registro.analiseCritica <= 0) {
+                    const seq_paciente =
+                      await this.recordAssistencialRepository.getSequence()
                     const send = {
                       ID: seq_paciente[0].NEXTVAL,
                       ID_INTEGRA: registro.id,
@@ -660,6 +663,8 @@ export class SearchAssistencial {
                     })
                   } else {
                     for (const itemAnaliseCritica of registro.analiseCritica) {
+                      const seq_paciente =
+                        await this.recordAssistencialRepository.getSequence()
                       const send = {
                         ID: seq_paciente[0].NEXTVAL,
                         ID_INTEGRA: registro.id,
