@@ -359,7 +359,7 @@ export class SearchAssistencial {
                         registro?.altaAdminstratica?.dataAtendimentoFinal,
                       )
                     : null,
-                  DATAANALISE_ANALICRIT: registro.analiseCritica?.dataAnalise
+                  DATAANALISE_ANALICRIT: registro?.analiseCritica?.dataAnalise
                     ? new Date(registro?.analiseCritica?.dataAnalise)
                     : null,
                   ANALISECRITICA_ANALICRIT:
@@ -832,8 +832,8 @@ export class SearchAssistencial {
                               registro?.altaAdminstratica?.dataAtendimentoFinal,
                             )
                           : null,
-                        DATAANALISE_ANALICRIT: itemAnaliseCritica.dataAnalise
-                          ? new Date(itemAnaliseCritica.dataAnalise)
+                        DATAANALISE_ANALICRIT: itemAnaliseCritica?.dataAnalise
+                          ? new Date(itemAnaliseCritica?.dataAnalise)
                           : null,
                         ANALISECRITICA_ANALICRIT:
                           itemAnaliseCritica.analiseCritica || null,
