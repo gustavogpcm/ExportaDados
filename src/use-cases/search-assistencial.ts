@@ -833,7 +833,7 @@ export class SearchAssistencial {
                             )
                           : null,
                         DATAANALISE_ANALICRIT: itemAnaliseCritica.dataAnalise
-                          ? new Date(registro?.analiseCritica?.dataAnalise)
+                          ? new Date(itemAnaliseCritica.dataAnalise)
                           : null,
                         ANALISECRITICA_ANALICRIT:
                           itemAnaliseCritica.analiseCritica || null,
@@ -917,7 +917,9 @@ export class SearchAssistencial {
       console.log(e)
     }
 
-    console.log('Acabou de inserir no banco...' + assistencial.items)
+    console.log(
+      'Acabou de inserir no banco...' + JSON.stringify(assistencial.items),
+    )
 
     return
   }
