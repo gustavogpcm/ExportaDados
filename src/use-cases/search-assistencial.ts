@@ -1,3 +1,4 @@
+import { send } from 'process'
 import { RecordAssistencialRepository } from '../repositories/record-assistencial-repository'
 import { AssistencialRepository } from '../repositories/search-assistencial-repository'
 export interface SearchAssistencialDataRequest {
@@ -169,6 +170,7 @@ export class SearchAssistencial {
     const assistencial = await this.assistencialRepository.searchAssistencial(
       data,
     )
+    console.log(JSON.stringify(assistencial))
     console.log('Registrando no banco...')
     try {
       for (const registro of assistencial.items) {
@@ -208,211 +210,706 @@ export class SearchAssistencial {
               const CAUSAEXTERNA_STR = registro.causaExterna.join('')
               const seq_paciente =
                 await this.recordAssistencialRepository.getSequence()
-              const send = {
-                ID: seq_paciente[0].NEXTVAL,
-                ID_INTEGRA: registro.id,
-                SITUACAO: registro?.situacao || null,
-                CARATERINTERNACAO: registro?.caraterInternacao || null,
-                NUMEROOPERADORA: registro?.numeroOperadora || null,
-                NUMEROREGISTRO: registro?.numeroRegistro || null,
-                NUMEROATENDIMENTO: registro?.numeroAtendimento || null,
-                NUMEROAUTORIZACAO: registro?.numeroAutorizacao || null,
-                DATAINTERNACAO: registro?.dataInternacao
-                  ? new Date(registro?.dataInternacao)
-                  : null,
-                DATAAUTORIZACAO: registro?.dataAutorizacao
-                  ? new Date(registro?.dataAutorizacao)
-                  : null,
-                DATAALTA: registro?.dataAlta
-                  ? new Date(registro?.dataAlta)
-                  : null,
-                CONDICAOALTA: registro?.condicaoAlta || null,
-                RECAIDA: registro?.recaida || null,
-                ORIGEMREADMISSAO30DIAS:
-                  registro?.origemReadmissao30Dias || null,
-                ORIGEMRECAIDA30DIAS: registro?.origemRecaida30Dias || null,
-                IDINTERNACAORECAIDA: registro?.idInternacaoRecaida || null,
-                IDORIGEMRECAIDA: registro?.idOrigemRecaida || null,
-                TOTALHORASVENTILACAOMECANICA:
-                  registro?.totalHorasVentilacaoMecanica || null,
-                MODALIDADEINTERNACAO: registro?.modalidadeInternacao || null,
-                DATACADASTROALTA: registro?.dataCadastroAlta
-                  ? new Date(registro?.dataCadastroAlta)
-                  : null || null,
-                USUARIOCADASTROALTA: registro?.usuarioCadastroAlta || null,
-                CORRECAOREGISTRO: registro?.correcaoRegistro || null,
-                USUARIOCORRECAO: registro?.usuarioCorrecao || null,
-                DATAULTIMORECALCULO: registro?.dataUltimoRecalculo || null,
-                INTERNADOOUTRASVEZES: registro?.internadooutrasvezes || null,
-                HOSPITALINTERNACAOANTERIOR:
-                  registro?.hospitalinternacaoanterior || null,
-                REINTERNACAO: registro?.reinternacao || null,
-                DATAPREVISTAALTA: registro?.dataPrevistaAlta
-                  ? new Date(registro?.dataPrevistaAlta)
-                  : null,
-                PERMANENPREVISTAINTER:
-                  registro?.permanenciaPrevistaNaInternacao || null,
-                PERMANENCIAPREVISTANAALTA:
-                  registro?.permanenciaPrevistaNaAlta || null,
-                PERMANENCIAREAL: registro?.permanenciaReal || null,
-                PERCENTIL: registro?.percentil || null,
-                PROCEDENCIA: registro?.procedencia || null,
-                VENTILACAOMECANIA: registro?.ventilacaoMecanica || null,
-                DATACADASTRO: registro?.dataCadastro
-                  ? new Date(registro?.dataCadastro)
-                  : null,
-                USUARIOCADASTRO: registro?.usuarioCadastro || null,
-                USUARIOCADASTROALTA2: registro?.usuarioCadastroAlta || null,
-                DATAULTIMAALTERACAO: registro?.dataUltimaAlteracao
-                  ? new Date(registro?.dataUltimaAlteracao)
-                  : null,
-                USUARIOULTIMAALTERACAO:
-                  registro?.usuarioUltimaAlteracao || null,
-                CODIGO_INSTITUICAO: registro?.instituicao?.codigo || null,
-                NOME_INSTITUICAO: registro?.instituicao?.nome || null,
-                CODIGO_HOSPITAL: registro?.hospital?.codigo || null,
-                NOME_HOSPITAL: registro?.hospital?.nome || null,
-                CODIGOPACIENTE_BENEFICIARIO:
-                  registro?.beneficiario?.codigoPaciente || null,
-                PLANO_BENEFICIARIO: registro?.beneficiario?.plano || null,
-                DATANASCIMENTO_BENEFICIARIO: registro?.beneficiario
-                  ?.dataNascimento
-                  ? new Date(registro?.beneficiario?.dataNascimento)
-                  : null,
-                SEXO_BENEFICIARIO: registro?.beneficiario?.sexo || null,
-                IDADEEMANOS_BENEFICIARIO:
-                  registro?.beneficiario?.idadeEmAnos || null,
-                IDADEEMMESES_BENEFICIARIO:
-                  registro?.beneficiario?.idadeEmMeses || null,
-                IDADEEMDIAS_BENEFICIARIO:
-                  registro?.beneficiario?.idadeEmDias || null,
-                NOME_MEDICO: nome_medico || null,
-                UF_MEDICO: uf_medico || null,
-                CRM_MEDICO: crm_medico || null,
-                ESPECIALIDADE_MEDICO: especialidade_medico || null,
-                MEDICORESPONSAVEL_MEDICO: medico_responsavel || null,
-                TIPOATUACAO_MEDICO: tipoatuacao_medico || null,
-                DATAEXECUCAO_PROCEDIMENTO: data_execucao_procedimento
-                  ? new Date(data_execucao_procedimento)
-                  : null,
-                NOME_MEDICO_PROCEDIMENTO: nome_medico_procedimento || null,
-                UF_MEDICO_PROCEDIMENTO: uf_medico_procedimento || null,
-                CRM_MEDICO_PROCEDIMENTO: crm_medico_procedimento || null,
-                ESPECIALID_MEDICO_PROCED: especialid_medico_proced || null,
-                TIPATUACAO_MEDICO_PROCED: tipatuacao_medico_proced || null,
-                DATAINICIAL_CTI: registro?.cti?.dataInicial
-                  ? new Date(registro?.cti?.dataInicial)
-                  : null,
-                DATAFINAL_CTI: registro?.cti?.dataFinal
-                  ? new Date(registro?.cti?.dataFinal)
-                  : null,
-                CONDICAOALTA_CTI: registro?.cti?.condicaoAlta || null,
-                TIPO_CTI: registro?.cti?.tipo || null,
-                PERMANENCIAPREVISTANAALTA_CTI:
-                  registro?.cti?.permanicenciaPrevistaNaAlta || null,
-                PERMANENCIAREAL_CTI: registro?.cti?.permantenciaReal || null,
-                NOME_MEDICO_CTI: registro?.cti?.medico?.nome || null,
-                UF_MEDICO_CTI: registro?.cti?.medico?.uf || null,
-                CRM_MEDICO_CTI: registro?.cti?.medico?.crm || null,
-                ESPECIALIDADE_MEDICO_CTI:
-                  registro?.cti?.medico?.especialidade || null,
-                CODIGO_HOSPITAL_CTI: registro?.cti?.hospital?.codigo || null,
-                NOME_HOSPITAL_CTI: registro?.cti?.hospital?.nome || null,
-                CODIGO_CIDPRINCIPAL_CTI: registro?.cti?.cidPrincipal || null,
-                DESCRICAO_CIDPRINCIPAL_CTI:
-                  registro?.cti?.descricaoCidPrincipal || null,
-                CODIGO_DRGBRASILREFINADO_CTI:
-                  registro?.drgBrasilRefinado?.codigo || null,
-                DESCRI_DRGBRASILREFINADO_CTI:
-                  registro?.drgBrasilRefinado?.descricao || null,
-                TIPO_DRGBRASILREFINADO_CTI:
-                  registro?.drgBrasilRefinado?.tipo || null,
-                CODIGO_MDC_CTI:
-                  registro?.drgBrasilRefinado?.mdc?.codigo || null,
-                DESCRICAO_MDC_CTI:
-                  registro?.drgBrasilRefinado?.mdc?.descricao || null,
-                LEITO_CTI: registro?.cti?.leito || null,
-                PESONASCIMENTO_RN: registro?.rn?.pesoNacimento || null,
-                IDADEGESTACIONAL_RN: registro?.rn?.idadeGestacional || null,
-                COMPRIMENTO_RN: registro?.rn?.comprimento || null,
-                SEXO_RN: registro?.rn?.sexo || null,
-                NASCIDOVIVO_RN: registro?.rn?.nascidoVivo || null,
-                TOCOTRAUMATISMO_RN: registro?.rn?.tocoTraumatismo || null,
-                APGAR_RN: registro?.rn?.apgar || null,
-                APGARQUINTOMINUTO_RN: registro?.rn?.apgarQuintoMinuto || null,
-                ALTA48HORAS_RN: registro?.rn?.Alta48horas || null,
-                NUMEROAUTORIZACAO_ALTAADMIN:
-                  registro?.altaAdminstratica?.numeroAutorizacao || null,
-                DATAAUTORIZACAO_ALTAADMIN: registro?.altaAdminstratica
-                  ?.dataAutorizacao
-                  ? new Date(registro?.altaAdminstratica?.dataAutorizacao)
-                  : null,
-                DATAATENDIMINICIAL_ALTAADMIN: registro?.altaAdminstratica
-                  ?.dataAtendiminicial
-                  ? new Date(registro?.altaAdminstratica?.dataAtendiminicial)
-                  : null,
-                DATAATENDIMFINAL_ALTAADMIN: registro?.altaAdminstratica
-                  ?.dataAtendimentoFinal
-                  ? new Date(registro?.altaAdminstratica?.dataAtendimentoFinal)
-                  : null,
-                DATAANALISE_ANALICRIT: registro?.analiseCritica?.dataAnalise
-                  ? new Date(registro?.analiseCritica?.dataAnalise)
-                  : null,
-                ANALISECRITICA_ANALICRIT:
-                  registro?.analiseCritica?.analiseCritica || null,
-                TIPO_SUPVENTIL:
-                  registro?.sondaVesicalDeDemora?.analiseCritica || null,
-                LOCAL_SUPVENTIL: registro?.suporteVentilatorio?.local || null,
-                DATAINICIAL_SUPVENTIL: registro?.suporteVentilatorio
-                  ?.dataInicial
-                  ? new Date(registro?.suporteVentilatorio?.dataInicial)
-                  : null,
-                DATAFINAL_SUPVENTIL: registro?.suporteVentilatorio?.dataFinal
-                  ? new Date(registro?.suporteVentilatorio?.dataFinal)
-                  : null,
-                CODIGO_CIDPRINC: registro?.cidPrincipal?.codigo || null,
-                DESCRICAO_CIDPRINC: registro?.cidPrincipal?.descricao || null,
-                SENSIVELCUIDADPRIMA_CIDPRINC:
-                  registro?.cidPrincipal?.sensivelCuidadoPrimario || null,
-                CODIGO_CIDSECUN: registro?.cidSecundario?.codigo || null,
-                DESCRICAO_CIDSECUN: registro?.cidSecundario?.descricao || null,
-                SONDAVESICALDEDEMORA:
-                  registro?.sondaVesicalDeDemora?.sondaVesicalDeDemora || null,
-                CATETERVASCULARCENTRAL: CATETERVASCULARCENTRAL_STR || null,
-                CLASSIFICACAOROBSON_PARTADEQ: registro?.partoAdequado || null,
-                DRGADMISSIONAL: registro?.drgAdmissional?.codigo || null,
-                CAUSAEXTERNA: CAUSAEXTERNA_STR || null,
-                CAGRAVE: registro?.variaveis?.caGrave || null,
-                GERENCIAVELATENCAOPRIMARIA:
-                  registro?.variaveis?.gerenciavelAtencaoPrimaria || null,
-                GERENCIAVELEMERGENCIA:
-                  registro?.variaveis?.gerenciavelEmergencia || null,
-                IDOSOFRAGIL: registro?.variaveis?.idosoFragil || null,
-                CODIGO_DRGBRASILREFIN:
-                  registro?.drgBrasilRefinado?.codigo || null,
-                DESCRICAO_DRGBRASILREFIN:
-                  registro?.drgBrasilRefinado?.descricao || null,
-                TIPO_DRGBRASILREFIN: registro?.drgBrasilRefinado?.tipo || null,
-                PESO_DRGBRASILREFIN: registro?.drgBrasilRefinado?.peso || null,
-                CODIGO_MDC_DRGBRASILREFIN:
-                  registro?.drgBrasilRefinado?.mdc?.codigo || null,
-                DESCRICAO_MDC_DRGBRASILREFIN:
-                  registro?.drgBrasilRefinado?.mdc?.descricao || null,
-                LEITO: registro?.leito || null,
-                DESCRICAO_CAUSAEXT: registro?.causaExterna?.descricao || null,
-                TEMPO_CAUSAEXT: registro?.causaExterna?.tempo || null,
-                DATAINICIAL_CAUSAEXT: registro?.causaExterna?.dataInicial
-                  ? new Date(registro?.causaExterna?.dataInicial)
-                  : null,
-                DATAFINAL_CAUSAEXT: registro?.causaExterna?.dataFinal
-                  ? new Date(registro?.causaExterna?.dataFinal)
-                  : null,
+              if (registro.cidSecundario <= 0) {
+                const send = {
+                  ID: seq_paciente[0].NEXTVAL,
+                  ID_INTEGRA: registro.id,
+                  SITUACAO: registro?.situacao || null,
+                  CARATERINTERNACAO: registro?.caraterInternacao || null,
+                  NUMEROOPERADORA: registro?.numeroOperadora || null,
+                  NUMEROREGISTRO: registro?.numeroRegistro || null,
+                  NUMEROATENDIMENTO: registro?.numeroAtendimento || null,
+                  NUMEROAUTORIZACAO: registro?.numeroAutorizacao || null,
+                  DATAINTERNACAO: registro?.dataInternacao
+                    ? new Date(registro?.dataInternacao)
+                    : null,
+                  DATAAUTORIZACAO: registro?.dataAutorizacao
+                    ? new Date(registro?.dataAutorizacao)
+                    : null,
+                  DATAALTA: registro?.dataAlta
+                    ? new Date(registro?.dataAlta)
+                    : null,
+                  CONDICAOALTA: registro?.condicaoAlta || null,
+                  RECAIDA: registro?.recaida || null,
+                  ORIGEMREADMISSAO30DIAS:
+                    registro?.origemReadmissao30Dias || null,
+                  ORIGEMRECAIDA30DIAS: registro?.origemRecaida30Dias || null,
+                  IDINTERNACAORECAIDA: registro?.idInternacaoRecaida || null,
+                  IDORIGEMRECAIDA: registro?.idOrigemRecaida || null,
+                  TOTALHORASVENTILACAOMECANICA:
+                    registro?.totalHorasVentilacaoMecanica || null,
+                  MODALIDADEINTERNACAO: registro?.modalidadeInternacao || null,
+                  DATACADASTROALTA: registro?.dataCadastroAlta
+                    ? new Date(registro?.dataCadastroAlta)
+                    : null || null,
+                  USUARIOCADASTROALTA: registro?.usuarioCadastroAlta || null,
+                  CORRECAOREGISTRO: registro?.correcaoRegistro || null,
+                  USUARIOCORRECAO: registro?.usuarioCorrecao || null,
+                  DATAULTIMORECALCULO: registro?.dataUltimoRecalculo || null,
+                  INTERNADOOUTRASVEZES: registro?.internadooutrasvezes || null,
+                  HOSPITALINTERNACAOANTERIOR:
+                    registro?.hospitalinternacaoanterior || null,
+                  REINTERNACAO: registro?.reinternacao || null,
+                  DATAPREVISTAALTA: registro?.dataPrevistaAlta
+                    ? new Date(registro?.dataPrevistaAlta)
+                    : null,
+                  PERMANENPREVISTAINTER:
+                    registro?.permanenciaPrevistaNaInternacao || null,
+                  PERMANENCIAPREVISTANAALTA:
+                    registro?.permanenciaPrevistaNaAlta || null,
+                  PERMANENCIAREAL: registro?.permanenciaReal || null,
+                  PERCENTIL: registro?.percentil || null,
+                  PROCEDENCIA: registro?.procedencia || null,
+                  VENTILACAOMECANIA: registro?.ventilacaoMecanica || null,
+                  DATACADASTRO: registro?.dataCadastro
+                    ? new Date(registro?.dataCadastro)
+                    : null,
+                  USUARIOCADASTRO: registro?.usuarioCadastro || null,
+                  USUARIOCADASTROALTA2: registro?.usuarioCadastroAlta || null,
+                  DATAULTIMAALTERACAO: registro?.dataUltimaAlteracao
+                    ? new Date(registro?.dataUltimaAlteracao)
+                    : null,
+                  USUARIOULTIMAALTERACAO:
+                    registro?.usuarioUltimaAlteracao || null,
+                  CODIGO_INSTITUICAO: registro?.instituicao?.codigo || null,
+                  NOME_INSTITUICAO: registro?.instituicao?.nome || null,
+                  CODIGO_HOSPITAL: registro?.hospital?.codigo || null,
+                  NOME_HOSPITAL: registro?.hospital?.nome || null,
+                  CODIGOPACIENTE_BENEFICIARIO:
+                    registro?.beneficiario?.codigoPaciente || null,
+                  PLANO_BENEFICIARIO: registro?.beneficiario?.plano || null,
+                  DATANASCIMENTO_BENEFICIARIO: registro?.beneficiario
+                    ?.dataNascimento
+                    ? new Date(registro?.beneficiario?.dataNascimento)
+                    : null,
+                  SEXO_BENEFICIARIO: registro?.beneficiario?.sexo || null,
+                  IDADEEMANOS_BENEFICIARIO:
+                    registro?.beneficiario?.idadeEmAnos || null,
+                  IDADEEMMESES_BENEFICIARIO:
+                    registro?.beneficiario?.idadeEmMeses || null,
+                  IDADEEMDIAS_BENEFICIARIO:
+                    registro?.beneficiario?.idadeEmDias || null,
+                  NOME_MEDICO: nome_medico || null,
+                  UF_MEDICO: uf_medico || null,
+                  CRM_MEDICO: crm_medico || null,
+                  ESPECIALIDADE_MEDICO: especialidade_medico || null,
+                  MEDICORESPONSAVEL_MEDICO: medico_responsavel || null,
+                  TIPOATUACAO_MEDICO: tipoatuacao_medico || null,
+                  DATAEXECUCAO_PROCEDIMENTO: data_execucao_procedimento
+                    ? new Date(data_execucao_procedimento)
+                    : null,
+                  NOME_MEDICO_PROCEDIMENTO: nome_medico_procedimento || null,
+                  UF_MEDICO_PROCEDIMENTO: uf_medico_procedimento || null,
+                  CRM_MEDICO_PROCEDIMENTO: crm_medico_procedimento || null,
+                  ESPECIALID_MEDICO_PROCED: especialid_medico_proced || null,
+                  TIPATUACAO_MEDICO_PROCED: tipatuacao_medico_proced || null,
+                  DATAINICIAL_CTI: registro?.cti?.dataInicial
+                    ? new Date(registro?.cti?.dataInicial)
+                    : null,
+                  DATAFINAL_CTI: registro?.cti?.dataFinal
+                    ? new Date(registro?.cti?.dataFinal)
+                    : null,
+                  CONDICAOALTA_CTI: registro?.cti?.condicaoAlta || null,
+                  TIPO_CTI: registro?.cti?.tipo || null,
+                  PERMANENCIAPREVISTANAALTA_CTI:
+                    registro?.cti?.permanicenciaPrevistaNaAlta || null,
+                  PERMANENCIAREAL_CTI: registro?.cti?.permantenciaReal || null,
+                  NOME_MEDICO_CTI: registro?.cti?.medico?.nome || null,
+                  UF_MEDICO_CTI: registro?.cti?.medico?.uf || null,
+                  CRM_MEDICO_CTI: registro?.cti?.medico?.crm || null,
+                  ESPECIALIDADE_MEDICO_CTI:
+                    registro?.cti?.medico?.especialidade || null,
+                  CODIGO_HOSPITAL_CTI: registro?.cti?.hospital?.codigo || null,
+                  NOME_HOSPITAL_CTI: registro?.cti?.hospital?.nome || null,
+                  CODIGO_CIDPRINCIPAL_CTI: registro?.cti?.cidPrincipal || null,
+                  DESCRICAO_CIDPRINCIPAL_CTI:
+                    registro?.cti?.descricaoCidPrincipal || null,
+                  CODIGO_DRGBRASILREFINADO_CTI:
+                    registro?.drgBrasilRefinado?.codigo || null,
+                  DESCRI_DRGBRASILREFINADO_CTI:
+                    registro?.drgBrasilRefinado?.descricao || null,
+                  TIPO_DRGBRASILREFINADO_CTI:
+                    registro?.drgBrasilRefinado?.tipo || null,
+                  CODIGO_MDC_CTI:
+                    registro?.drgBrasilRefinado?.mdc?.codigo || null,
+                  DESCRICAO_MDC_CTI:
+                    registro?.drgBrasilRefinado?.mdc?.descricao || null,
+                  LEITO_CTI: registro?.cti?.leito || null,
+                  PESONASCIMENTO_RN: registro?.rn?.pesoNacimento || null,
+                  IDADEGESTACIONAL_RN: registro?.rn?.idadeGestacional || null,
+                  COMPRIMENTO_RN: registro?.rn?.comprimento || null,
+                  SEXO_RN: registro?.rn?.sexo || null,
+                  NASCIDOVIVO_RN: registro?.rn?.nascidoVivo || null,
+                  TOCOTRAUMATISMO_RN: registro?.rn?.tocoTraumatismo || null,
+                  APGAR_RN: registro?.rn?.apgar || null,
+                  APGARQUINTOMINUTO_RN: registro?.rn?.apgarQuintoMinuto || null,
+                  ALTA48HORAS_RN: registro?.rn?.Alta48horas || null,
+                  NUMEROAUTORIZACAO_ALTAADMIN:
+                    registro?.altaAdminstratica?.numeroAutorizacao || null,
+                  DATAAUTORIZACAO_ALTAADMIN: registro?.altaAdminstratica
+                    ?.dataAutorizacao
+                    ? new Date(registro?.altaAdminstratica?.dataAutorizacao)
+                    : null,
+                  DATAATENDIMINICIAL_ALTAADMIN: registro?.altaAdminstratica
+                    ?.dataAtendiminicial
+                    ? new Date(registro?.altaAdminstratica?.dataAtendiminicial)
+                    : null,
+                  DATAATENDIMFINAL_ALTAADMIN: registro?.altaAdminstratica
+                    ?.dataAtendimentoFinal
+                    ? new Date(
+                        registro?.altaAdminstratica?.dataAtendimentoFinal,
+                      )
+                    : null,
+                  DATAANALISE_ANALICRIT: registro.analiseCritica?.dataAnalise
+                    ? new Date(registro?.analiseCritica?.dataAnalise)
+                    : null,
+                  ANALISECRITICA_ANALICRIT:
+                    registro?.analiseCritica?.analiseCritica || null,
+                  TIPO_SUPVENTIL:
+                    registro?.sondaVesicalDeDemora?.analiseCritica || null,
+                  LOCAL_SUPVENTIL: registro?.suporteVentilatorio?.local || null,
+                  DATAINICIAL_SUPVENTIL: registro?.suporteVentilatorio
+                    ?.dataInicial
+                    ? new Date(registro?.suporteVentilatorio?.dataInicial)
+                    : null,
+                  DATAFINAL_SUPVENTIL: registro?.suporteVentilatorio?.dataFinal
+                    ? new Date(registro?.suporteVentilatorio?.dataFinal)
+                    : null,
+                  CODIGO_CIDPRINC: registro?.cidPrincipal?.codigo || null,
+                  DESCRICAO_CIDPRINC: registro?.cidPrincipal?.descricao || null,
+                  SENSIVELCUIDADPRIMA_CIDPRINC:
+                    registro?.cidPrincipal?.sensivelCuidadoPrimario || null,
+                  CODIGO_CIDSECUN: registro?.cidSecundario?.codigo || null,
+                  DESCRICAO_CIDSECUN:
+                    registro?.cidSecundario?.descricao || null,
+                  SONDAVESICALDEDEMORA:
+                    registro?.sondaVesicalDeDemora?.sondaVesicalDeDemora ||
+                    null,
+                  CATETERVASCULARCENTRAL: CATETERVASCULARCENTRAL_STR || null,
+                  CLASSIFICACAOROBSON_PARTADEQ: registro?.partoAdequado || null,
+                  DRGADMISSIONAL: registro?.drgAdmissional?.codigo || null,
+                  CAUSAEXTERNA: CAUSAEXTERNA_STR || null,
+                  CAGRAVE: registro?.variaveis?.caGrave || null,
+                  GERENCIAVELATENCAOPRIMARIA:
+                    registro?.variaveis?.gerenciavelAtencaoPrimaria || null,
+                  GERENCIAVELEMERGENCIA:
+                    registro?.variaveis?.gerenciavelEmergencia || null,
+                  IDOSOFRAGIL: registro?.variaveis?.idosoFragil || null,
+                  CODIGO_DRGBRASILREFIN:
+                    registro?.drgBrasilRefinado?.codigo || null,
+                  DESCRICAO_DRGBRASILREFIN:
+                    registro?.drgBrasilRefinado?.descricao || null,
+                  TIPO_DRGBRASILREFIN:
+                    registro?.drgBrasilRefinado?.tipo || null,
+                  PESO_DRGBRASILREFIN:
+                    registro?.drgBrasilRefinado?.peso || null,
+                  CODIGO_MDC_DRGBRASILREFIN:
+                    registro?.drgBrasilRefinado?.mdc?.codigo || null,
+                  DESCRICAO_MDC_DRGBRASILREFIN:
+                    registro?.drgBrasilRefinado?.mdc?.descricao || null,
+                  LEITO: registro?.leito || null,
+                  DESCRICAO_CAUSAEXT: registro?.causaExterna?.descricao || null,
+                  TEMPO_CAUSAEXT: registro?.causaExterna?.tempo || null,
+                  DATAINICIAL_CAUSAEXT: registro?.causaExterna?.dataInicial
+                    ? new Date(registro?.causaExterna?.dataInicial)
+                    : null,
+                  DATAFINAL_CAUSAEXT: registro?.causaExterna?.dataFinal
+                    ? new Date(registro?.causaExterna?.dataFinal)
+                    : null,
+                }
+                console.log(send)
+                await this.recordAssistencialRepository.recordAssistencial({
+                  send,
+                })
+              } else {
+                for (const itemCidSec of registro.cidSecundario) {
+                  if (registro.analiseCritica <= 0) {
+                    const send = {
+                      ID: seq_paciente[0].NEXTVAL,
+                      ID_INTEGRA: registro.id,
+                      SITUACAO: registro?.situacao || null,
+                      CARATERINTERNACAO: registro?.caraterInternacao || null,
+                      NUMEROOPERADORA: registro?.numeroOperadora || null,
+                      NUMEROREGISTRO: registro?.numeroRegistro || null,
+                      NUMEROATENDIMENTO: registro?.numeroAtendimento || null,
+                      NUMEROAUTORIZACAO: registro?.numeroAutorizacao || null,
+                      DATAINTERNACAO: registro?.dataInternacao
+                        ? new Date(registro?.dataInternacao)
+                        : null,
+                      DATAAUTORIZACAO: registro?.dataAutorizacao
+                        ? new Date(registro?.dataAutorizacao)
+                        : null,
+                      DATAALTA: registro?.dataAlta
+                        ? new Date(registro?.dataAlta)
+                        : null,
+                      CONDICAOALTA: registro?.condicaoAlta || null,
+                      RECAIDA: registro?.recaida || null,
+                      ORIGEMREADMISSAO30DIAS:
+                        registro?.origemReadmissao30Dias || null,
+                      ORIGEMRECAIDA30DIAS:
+                        registro?.origemRecaida30Dias || null,
+                      IDINTERNACAORECAIDA:
+                        registro?.idInternacaoRecaida || null,
+                      IDORIGEMRECAIDA: registro?.idOrigemRecaida || null,
+                      TOTALHORASVENTILACAOMECANICA:
+                        registro?.totalHorasVentilacaoMecanica || null,
+                      MODALIDADEINTERNACAO:
+                        registro?.modalidadeInternacao || null,
+                      DATACADASTROALTA: registro?.dataCadastroAlta
+                        ? new Date(registro?.dataCadastroAlta)
+                        : null || null,
+                      USUARIOCADASTROALTA:
+                        registro?.usuarioCadastroAlta || null,
+                      CORRECAOREGISTRO: registro?.correcaoRegistro || null,
+                      USUARIOCORRECAO: registro?.usuarioCorrecao || null,
+                      DATAULTIMORECALCULO:
+                        registro?.dataUltimoRecalculo || null,
+                      INTERNADOOUTRASVEZES:
+                        registro?.internadooutrasvezes || null,
+                      HOSPITALINTERNACAOANTERIOR:
+                        registro?.hospitalinternacaoanterior || null,
+                      REINTERNACAO: registro?.reinternacao || null,
+                      DATAPREVISTAALTA: registro?.dataPrevistaAlta
+                        ? new Date(registro?.dataPrevistaAlta)
+                        : null,
+                      PERMANENPREVISTAINTER:
+                        registro?.permanenciaPrevistaNaInternacao || null,
+                      PERMANENCIAPREVISTANAALTA:
+                        registro?.permanenciaPrevistaNaAlta || null,
+                      PERMANENCIAREAL: registro?.permanenciaReal || null,
+                      PERCENTIL: registro?.percentil || null,
+                      PROCEDENCIA: registro?.procedencia || null,
+                      VENTILACAOMECANIA: registro?.ventilacaoMecanica || null,
+                      DATACADASTRO: registro?.dataCadastro
+                        ? new Date(registro?.dataCadastro)
+                        : null,
+                      USUARIOCADASTRO: registro?.usuarioCadastro || null,
+                      USUARIOCADASTROALTA2:
+                        registro?.usuarioCadastroAlta || null,
+                      DATAULTIMAALTERACAO: registro?.dataUltimaAlteracao
+                        ? new Date(registro?.dataUltimaAlteracao)
+                        : null,
+                      USUARIOULTIMAALTERACAO:
+                        registro?.usuarioUltimaAlteracao || null,
+                      CODIGO_INSTITUICAO: registro?.instituicao?.codigo || null,
+                      NOME_INSTITUICAO: registro?.instituicao?.nome || null,
+                      CODIGO_HOSPITAL: registro?.hospital?.codigo || null,
+                      NOME_HOSPITAL: registro?.hospital?.nome || null,
+                      CODIGOPACIENTE_BENEFICIARIO:
+                        registro?.beneficiario?.codigoPaciente || null,
+                      PLANO_BENEFICIARIO: registro?.beneficiario?.plano || null,
+                      DATANASCIMENTO_BENEFICIARIO: registro?.beneficiario
+                        ?.dataNascimento
+                        ? new Date(registro?.beneficiario?.dataNascimento)
+                        : null,
+                      SEXO_BENEFICIARIO: registro?.beneficiario?.sexo || null,
+                      IDADEEMANOS_BENEFICIARIO:
+                        registro?.beneficiario?.idadeEmAnos || null,
+                      IDADEEMMESES_BENEFICIARIO:
+                        registro?.beneficiario?.idadeEmMeses || null,
+                      IDADEEMDIAS_BENEFICIARIO:
+                        registro?.beneficiario?.idadeEmDias || null,
+                      NOME_MEDICO: nome_medico || null,
+                      UF_MEDICO: uf_medico || null,
+                      CRM_MEDICO: crm_medico || null,
+                      ESPECIALIDADE_MEDICO: especialidade_medico || null,
+                      MEDICORESPONSAVEL_MEDICO: medico_responsavel || null,
+                      TIPOATUACAO_MEDICO: tipoatuacao_medico || null,
+                      DATAEXECUCAO_PROCEDIMENTO: data_execucao_procedimento
+                        ? new Date(data_execucao_procedimento)
+                        : null,
+                      NOME_MEDICO_PROCEDIMENTO:
+                        nome_medico_procedimento || null,
+                      UF_MEDICO_PROCEDIMENTO: uf_medico_procedimento || null,
+                      CRM_MEDICO_PROCEDIMENTO: crm_medico_procedimento || null,
+                      ESPECIALID_MEDICO_PROCED:
+                        especialid_medico_proced || null,
+                      TIPATUACAO_MEDICO_PROCED:
+                        tipatuacao_medico_proced || null,
+                      DATAINICIAL_CTI: registro?.cti?.dataInicial
+                        ? new Date(registro?.cti?.dataInicial)
+                        : null,
+                      DATAFINAL_CTI: registro?.cti?.dataFinal
+                        ? new Date(registro?.cti?.dataFinal)
+                        : null,
+                      CONDICAOALTA_CTI: registro?.cti?.condicaoAlta || null,
+                      TIPO_CTI: registro?.cti?.tipo || null,
+                      PERMANENCIAPREVISTANAALTA_CTI:
+                        registro?.cti?.permanicenciaPrevistaNaAlta || null,
+                      PERMANENCIAREAL_CTI:
+                        registro?.cti?.permantenciaReal || null,
+                      NOME_MEDICO_CTI: registro?.cti?.medico?.nome || null,
+                      UF_MEDICO_CTI: registro?.cti?.medico?.uf || null,
+                      CRM_MEDICO_CTI: registro?.cti?.medico?.crm || null,
+                      ESPECIALIDADE_MEDICO_CTI:
+                        registro?.cti?.medico?.especialidade || null,
+                      CODIGO_HOSPITAL_CTI:
+                        registro?.cti?.hospital?.codigo || null,
+                      NOME_HOSPITAL_CTI: registro?.cti?.hospital?.nome || null,
+                      CODIGO_CIDPRINCIPAL_CTI:
+                        registro?.cti?.cidPrincipal || null,
+                      DESCRICAO_CIDPRINCIPAL_CTI:
+                        registro?.cti?.descricaoCidPrincipal || null,
+                      CODIGO_DRGBRASILREFINADO_CTI:
+                        registro?.drgBrasilRefinado?.codigo || null,
+                      DESCRI_DRGBRASILREFINADO_CTI:
+                        registro?.drgBrasilRefinado?.descricao || null,
+                      TIPO_DRGBRASILREFINADO_CTI:
+                        registro?.drgBrasilRefinado?.tipo || null,
+                      CODIGO_MDC_CTI:
+                        registro?.drgBrasilRefinado?.mdc?.codigo || null,
+                      DESCRICAO_MDC_CTI:
+                        registro?.drgBrasilRefinado?.mdc?.descricao || null,
+                      LEITO_CTI: registro?.cti?.leito || null,
+                      PESONASCIMENTO_RN: registro?.rn?.pesoNacimento || null,
+                      IDADEGESTACIONAL_RN:
+                        registro?.rn?.idadeGestacional || null,
+                      COMPRIMENTO_RN: registro?.rn?.comprimento || null,
+                      SEXO_RN: registro?.rn?.sexo || null,
+                      NASCIDOVIVO_RN: registro?.rn?.nascidoVivo || null,
+                      TOCOTRAUMATISMO_RN: registro?.rn?.tocoTraumatismo || null,
+                      APGAR_RN: registro?.rn?.apgar || null,
+                      APGARQUINTOMINUTO_RN:
+                        registro?.rn?.apgarQuintoMinuto || null,
+                      ALTA48HORAS_RN: registro?.rn?.Alta48horas || null,
+                      NUMEROAUTORIZACAO_ALTAADMIN:
+                        registro?.altaAdminstratica?.numeroAutorizacao || null,
+                      DATAAUTORIZACAO_ALTAADMIN: registro?.altaAdminstratica
+                        ?.dataAutorizacao
+                        ? new Date(registro?.altaAdminstratica?.dataAutorizacao)
+                        : null,
+                      DATAATENDIMINICIAL_ALTAADMIN: registro?.altaAdminstratica
+                        ?.dataAtendiminicial
+                        ? new Date(
+                            registro?.altaAdminstratica?.dataAtendiminicial,
+                          )
+                        : null,
+                      DATAATENDIMFINAL_ALTAADMIN: registro?.altaAdminstratica
+                        ?.dataAtendimentoFinal
+                        ? new Date(
+                            registro?.altaAdminstratica?.dataAtendimentoFinal,
+                          )
+                        : null,
+                      DATAANALISE_ANALICRIT: registro?.analiseCritica
+                        ?.dataAnalise
+                        ? new Date(registro?.analiseCritica?.dataAnalise)
+                        : null,
+                      ANALISECRITICA_ANALICRIT:
+                        registro?.analiseCritica.analiseCritica || null,
+                      TIPO_SUPVENTIL:
+                        registro?.sondaVesicalDeDemora?.analiseCritica || null,
+                      LOCAL_SUPVENTIL:
+                        registro?.suporteVentilatorio?.local || null,
+                      DATAINICIAL_SUPVENTIL: registro?.suporteVentilatorio
+                        ?.dataInicial
+                        ? new Date(registro?.suporteVentilatorio?.dataInicial)
+                        : null,
+                      DATAFINAL_SUPVENTIL: registro?.suporteVentilatorio
+                        ?.dataFinal
+                        ? new Date(registro?.suporteVentilatorio?.dataFinal)
+                        : null,
+                      CODIGO_CIDPRINC: registro?.cidPrincipal?.codigo || null,
+                      DESCRICAO_CIDPRINC:
+                        registro?.cidPrincipal?.descricao || null,
+                      SENSIVELCUIDADPRIMA_CIDPRINC:
+                        registro?.cidPrincipal?.sensivelCuidadoPrimario || null,
+                      CODIGO_CIDSECUN: itemCidSec.codigo || null,
+                      DESCRICAO_CIDSECUN: itemCidSec.descricao || null,
+                      SONDAVESICALDEDEMORA:
+                        registro?.sondaVesicalDeDemora?.sondaVesicalDeDemora ||
+                        null,
+                      CATETERVASCULARCENTRAL:
+                        CATETERVASCULARCENTRAL_STR || null,
+                      CLASSIFICACAOROBSON_PARTADEQ:
+                        registro?.partoAdequado || null,
+                      DRGADMISSIONAL: registro?.drgAdmissional?.codigo || null,
+                      CAUSAEXTERNA: CAUSAEXTERNA_STR || null,
+                      CAGRAVE: registro?.variaveis?.caGrave || null,
+                      GERENCIAVELATENCAOPRIMARIA:
+                        registro?.variaveis?.gerenciavelAtencaoPrimaria || null,
+                      GERENCIAVELEMERGENCIA:
+                        registro?.variaveis?.gerenciavelEmergencia || null,
+                      IDOSOFRAGIL: registro?.variaveis?.idosoFragil || null,
+                      CODIGO_DRGBRASILREFIN:
+                        registro?.drgBrasilRefinado?.codigo || null,
+                      DESCRICAO_DRGBRASILREFIN:
+                        registro?.drgBrasilRefinado?.descricao || null,
+                      TIPO_DRGBRASILREFIN:
+                        registro?.drgBrasilRefinado?.tipo || null,
+                      PESO_DRGBRASILREFIN:
+                        registro?.drgBrasilRefinado?.peso || null,
+                      CODIGO_MDC_DRGBRASILREFIN:
+                        registro?.drgBrasilRefinado?.mdc?.codigo || null,
+                      DESCRICAO_MDC_DRGBRASILREFIN:
+                        registro?.drgBrasilRefinado?.mdc?.descricao || null,
+                      LEITO: registro?.leito || null,
+                      DESCRICAO_CAUSAEXT:
+                        registro?.causaExterna?.descricao || null,
+                      TEMPO_CAUSAEXT: registro?.causaExterna?.tempo || null,
+                      DATAINICIAL_CAUSAEXT: registro?.causaExterna?.dataInicial
+                        ? new Date(registro?.causaExterna?.dataInicial)
+                        : null,
+                      DATAFINAL_CAUSAEXT: registro?.causaExterna?.dataFinal
+                        ? new Date(registro?.causaExterna?.dataFinal)
+                        : null,
+                    }
+                    console.log(send)
+                    await this.recordAssistencialRepository.recordAssistencial({
+                      send,
+                    })
+                  } else {
+                    for (const itemAnaliseCritica of registro.analiseCritica) {
+                      const send = {
+                        ID: seq_paciente[0].NEXTVAL,
+                        ID_INTEGRA: registro.id,
+                        SITUACAO: registro?.situacao || null,
+                        CARATERINTERNACAO: registro?.caraterInternacao || null,
+                        NUMEROOPERADORA: registro?.numeroOperadora || null,
+                        NUMEROREGISTRO: registro?.numeroRegistro || null,
+                        NUMEROATENDIMENTO: registro?.numeroAtendimento || null,
+                        NUMEROAUTORIZACAO: registro?.numeroAutorizacao || null,
+                        DATAINTERNACAO: registro?.dataInternacao
+                          ? new Date(registro?.dataInternacao)
+                          : null,
+                        DATAAUTORIZACAO: registro?.dataAutorizacao
+                          ? new Date(registro?.dataAutorizacao)
+                          : null,
+                        DATAALTA: registro?.dataAlta
+                          ? new Date(registro?.dataAlta)
+                          : null,
+                        CONDICAOALTA: registro?.condicaoAlta || null,
+                        RECAIDA: registro?.recaida || null,
+                        ORIGEMREADMISSAO30DIAS:
+                          registro?.origemReadmissao30Dias || null,
+                        ORIGEMRECAIDA30DIAS:
+                          registro?.origemRecaida30Dias || null,
+                        IDINTERNACAORECAIDA:
+                          registro?.idInternacaoRecaida || null,
+                        IDORIGEMRECAIDA: registro?.idOrigemRecaida || null,
+                        TOTALHORASVENTILACAOMECANICA:
+                          registro?.totalHorasVentilacaoMecanica || null,
+                        MODALIDADEINTERNACAO:
+                          registro?.modalidadeInternacao || null,
+                        DATACADASTROALTA: registro?.dataCadastroAlta
+                          ? new Date(registro?.dataCadastroAlta)
+                          : null || null,
+                        USUARIOCADASTROALTA:
+                          registro?.usuarioCadastroAlta || null,
+                        CORRECAOREGISTRO: registro?.correcaoRegistro || null,
+                        USUARIOCORRECAO: registro?.usuarioCorrecao || null,
+                        DATAULTIMORECALCULO:
+                          registro?.dataUltimoRecalculo || null,
+                        INTERNADOOUTRASVEZES:
+                          registro?.internadooutrasvezes || null,
+                        HOSPITALINTERNACAOANTERIOR:
+                          registro?.hospitalinternacaoanterior || null,
+                        REINTERNACAO: registro?.reinternacao || null,
+                        DATAPREVISTAALTA: registro?.dataPrevistaAlta
+                          ? new Date(registro?.dataPrevistaAlta)
+                          : null,
+                        PERMANENPREVISTAINTER:
+                          registro?.permanenciaPrevistaNaInternacao || null,
+                        PERMANENCIAPREVISTANAALTA:
+                          registro?.permanenciaPrevistaNaAlta || null,
+                        PERMANENCIAREAL: registro?.permanenciaReal || null,
+                        PERCENTIL: registro?.percentil || null,
+                        PROCEDENCIA: registro?.procedencia || null,
+                        VENTILACAOMECANIA: registro?.ventilacaoMecanica || null,
+                        DATACADASTRO: registro?.dataCadastro
+                          ? new Date(registro?.dataCadastro)
+                          : null,
+                        USUARIOCADASTRO: registro?.usuarioCadastro || null,
+                        USUARIOCADASTROALTA2:
+                          registro?.usuarioCadastroAlta || null,
+                        DATAULTIMAALTERACAO: registro?.dataUltimaAlteracao
+                          ? new Date(registro?.dataUltimaAlteracao)
+                          : null,
+                        USUARIOULTIMAALTERACAO:
+                          registro?.usuarioUltimaAlteracao || null,
+                        CODIGO_INSTITUICAO:
+                          registro?.instituicao?.codigo || null,
+                        NOME_INSTITUICAO: registro?.instituicao?.nome || null,
+                        CODIGO_HOSPITAL: registro?.hospital?.codigo || null,
+                        NOME_HOSPITAL: registro?.hospital?.nome || null,
+                        CODIGOPACIENTE_BENEFICIARIO:
+                          registro?.beneficiario?.codigoPaciente || null,
+                        PLANO_BENEFICIARIO:
+                          registro?.beneficiario?.plano || null,
+                        DATANASCIMENTO_BENEFICIARIO: registro?.beneficiario
+                          ?.dataNascimento
+                          ? new Date(registro?.beneficiario?.dataNascimento)
+                          : null,
+                        SEXO_BENEFICIARIO: registro?.beneficiario?.sexo || null,
+                        IDADEEMANOS_BENEFICIARIO:
+                          registro?.beneficiario?.idadeEmAnos || null,
+                        IDADEEMMESES_BENEFICIARIO:
+                          registro?.beneficiario?.idadeEmMeses || null,
+                        IDADEEMDIAS_BENEFICIARIO:
+                          registro?.beneficiario?.idadeEmDias || null,
+                        NOME_MEDICO: nome_medico || null,
+                        UF_MEDICO: uf_medico || null,
+                        CRM_MEDICO: crm_medico || null,
+                        ESPECIALIDADE_MEDICO: especialidade_medico || null,
+                        MEDICORESPONSAVEL_MEDICO: medico_responsavel || null,
+                        TIPOATUACAO_MEDICO: tipoatuacao_medico || null,
+                        DATAEXECUCAO_PROCEDIMENTO: data_execucao_procedimento
+                          ? new Date(data_execucao_procedimento)
+                          : null,
+                        NOME_MEDICO_PROCEDIMENTO:
+                          nome_medico_procedimento || null,
+                        UF_MEDICO_PROCEDIMENTO: uf_medico_procedimento || null,
+                        CRM_MEDICO_PROCEDIMENTO:
+                          crm_medico_procedimento || null,
+                        ESPECIALID_MEDICO_PROCED:
+                          especialid_medico_proced || null,
+                        TIPATUACAO_MEDICO_PROCED:
+                          tipatuacao_medico_proced || null,
+                        DATAINICIAL_CTI: registro?.cti?.dataInicial
+                          ? new Date(registro?.cti?.dataInicial)
+                          : null,
+                        DATAFINAL_CTI: registro?.cti?.dataFinal
+                          ? new Date(registro?.cti?.dataFinal)
+                          : null,
+                        CONDICAOALTA_CTI: registro?.cti?.condicaoAlta || null,
+                        TIPO_CTI: registro?.cti?.tipo || null,
+                        PERMANENCIAPREVISTANAALTA_CTI:
+                          registro?.cti?.permanicenciaPrevistaNaAlta || null,
+                        PERMANENCIAREAL_CTI:
+                          registro?.cti?.permantenciaReal || null,
+                        NOME_MEDICO_CTI: registro?.cti?.medico?.nome || null,
+                        UF_MEDICO_CTI: registro?.cti?.medico?.uf || null,
+                        CRM_MEDICO_CTI: registro?.cti?.medico?.crm || null,
+                        ESPECIALIDADE_MEDICO_CTI:
+                          registro?.cti?.medico?.especialidade || null,
+                        CODIGO_HOSPITAL_CTI:
+                          registro?.cti?.hospital?.codigo || null,
+                        NOME_HOSPITAL_CTI:
+                          registro?.cti?.hospital?.nome || null,
+                        CODIGO_CIDPRINCIPAL_CTI:
+                          registro?.cti?.cidPrincipal || null,
+                        DESCRICAO_CIDPRINCIPAL_CTI:
+                          registro?.cti?.descricaoCidPrincipal || null,
+                        CODIGO_DRGBRASILREFINADO_CTI:
+                          registro?.drgBrasilRefinado?.codigo || null,
+                        DESCRI_DRGBRASILREFINADO_CTI:
+                          registro?.drgBrasilRefinado?.descricao || null,
+                        TIPO_DRGBRASILREFINADO_CTI:
+                          registro?.drgBrasilRefinado?.tipo || null,
+                        CODIGO_MDC_CTI:
+                          registro?.drgBrasilRefinado?.mdc?.codigo || null,
+                        DESCRICAO_MDC_CTI:
+                          registro?.drgBrasilRefinado?.mdc?.descricao || null,
+                        LEITO_CTI: registro?.cti?.leito || null,
+                        PESONASCIMENTO_RN: registro?.rn?.pesoNacimento || null,
+                        IDADEGESTACIONAL_RN:
+                          registro?.rn?.idadeGestacional || null,
+                        COMPRIMENTO_RN: registro?.rn?.comprimento || null,
+                        SEXO_RN: registro?.rn?.sexo || null,
+                        NASCIDOVIVO_RN: registro?.rn?.nascidoVivo || null,
+                        TOCOTRAUMATISMO_RN:
+                          registro?.rn?.tocoTraumatismo || null,
+                        APGAR_RN: registro?.rn?.apgar || null,
+                        APGARQUINTOMINUTO_RN:
+                          registro?.rn?.apgarQuintoMinuto || null,
+                        ALTA48HORAS_RN: registro?.rn?.Alta48horas || null,
+                        NUMEROAUTORIZACAO_ALTAADMIN:
+                          registro?.altaAdminstratica?.numeroAutorizacao ||
+                          null,
+                        DATAAUTORIZACAO_ALTAADMIN: registro?.altaAdminstratica
+                          ?.dataAutorizacao
+                          ? new Date(
+                              registro?.altaAdminstratica?.dataAutorizacao,
+                            )
+                          : null,
+                        DATAATENDIMINICIAL_ALTAADMIN: registro
+                          ?.altaAdminstratica?.dataAtendiminicial
+                          ? new Date(
+                              registro?.altaAdminstratica?.dataAtendiminicial,
+                            )
+                          : null,
+                        DATAATENDIMFINAL_ALTAADMIN: registro?.altaAdminstratica
+                          ?.dataAtendimentoFinal
+                          ? new Date(
+                              registro?.altaAdminstratica?.dataAtendimentoFinal,
+                            )
+                          : null,
+                        DATAANALISE_ANALICRIT: itemAnaliseCritica.dataAnalise
+                          ? new Date(registro?.analiseCritica?.dataAnalise)
+                          : null,
+                        ANALISECRITICA_ANALICRIT:
+                          itemAnaliseCritica.analiseCritica || null,
+                        TIPO_SUPVENTIL:
+                          registro?.sondaVesicalDeDemora?.analiseCritica ||
+                          null,
+                        LOCAL_SUPVENTIL:
+                          registro?.suporteVentilatorio?.local || null,
+                        DATAINICIAL_SUPVENTIL: registro?.suporteVentilatorio
+                          ?.dataInicial
+                          ? new Date(registro?.suporteVentilatorio?.dataInicial)
+                          : null,
+                        DATAFINAL_SUPVENTIL: registro?.suporteVentilatorio
+                          ?.dataFinal
+                          ? new Date(registro?.suporteVentilatorio?.dataFinal)
+                          : null,
+                        CODIGO_CIDPRINC: registro?.cidPrincipal?.codigo || null,
+                        DESCRICAO_CIDPRINC:
+                          registro?.cidPrincipal?.descricao || null,
+                        SENSIVELCUIDADPRIMA_CIDPRINC:
+                          registro?.cidPrincipal?.sensivelCuidadoPrimario ||
+                          null,
+                        CODIGO_CIDSECUN: itemCidSec.codigo || null,
+                        DESCRICAO_CIDSECUN: itemCidSec.descricao || null,
+                        SONDAVESICALDEDEMORA:
+                          registro?.sondaVesicalDeDemora
+                            ?.sondaVesicalDeDemora || null,
+                        CATETERVASCULARCENTRAL:
+                          CATETERVASCULARCENTRAL_STR || null,
+                        CLASSIFICACAOROBSON_PARTADEQ:
+                          registro?.partoAdequado || null,
+                        DRGADMISSIONAL:
+                          registro?.drgAdmissional?.codigo || null,
+                        CAUSAEXTERNA: CAUSAEXTERNA_STR || null,
+                        CAGRAVE: registro?.variaveis?.caGrave || null,
+                        GERENCIAVELATENCAOPRIMARIA:
+                          registro?.variaveis?.gerenciavelAtencaoPrimaria ||
+                          null,
+                        GERENCIAVELEMERGENCIA:
+                          registro?.variaveis?.gerenciavelEmergencia || null,
+                        IDOSOFRAGIL: registro?.variaveis?.idosoFragil || null,
+                        CODIGO_DRGBRASILREFIN:
+                          registro?.drgBrasilRefinado?.codigo || null,
+                        DESCRICAO_DRGBRASILREFIN:
+                          registro?.drgBrasilRefinado?.descricao || null,
+                        TIPO_DRGBRASILREFIN:
+                          registro?.drgBrasilRefinado?.tipo || null,
+                        PESO_DRGBRASILREFIN:
+                          registro?.drgBrasilRefinado?.peso || null,
+                        CODIGO_MDC_DRGBRASILREFIN:
+                          registro?.drgBrasilRefinado?.mdc?.codigo || null,
+                        DESCRICAO_MDC_DRGBRASILREFIN:
+                          registro?.drgBrasilRefinado?.mdc?.descricao || null,
+                        LEITO: registro?.leito || null,
+                        DESCRICAO_CAUSAEXT:
+                          registro?.causaExterna?.descricao || null,
+                        TEMPO_CAUSAEXT: registro?.causaExterna?.tempo || null,
+                        DATAINICIAL_CAUSAEXT: registro?.causaExterna
+                          ?.dataInicial
+                          ? new Date(registro?.causaExterna?.dataInicial)
+                          : null,
+                        DATAFINAL_CAUSAEXT: registro?.causaExterna?.dataFinal
+                          ? new Date(registro?.causaExterna?.dataFinal)
+                          : null,
+                      }
+                      console.log(send)
+                      await this.recordAssistencialRepository.recordAssistencial(
+                        {
+                          send,
+                        },
+                      )
+                    }
+                  }
+                }
               }
-
-              console.log(send)
-              await this.recordAssistencialRepository.recordAssistencial({
-                send,
-              })
             }
           }
         }
