@@ -15,7 +15,7 @@ export async function writeLog(json: any) {
     const hour = String(now.getHours()).padStart(2, '0')
     const minute = String(now.getMinutes()).padStart(2, '0')
     const date = now.toISOString().slice(0, 10).replace(/-/g, '')
-    const fileName = `${date}-${hour}-${minute}.xml`
+    const fileName = `${date}-${hour}-${minute}.json`
     const filePath = `${folder}${fileName}`
 
     try {
