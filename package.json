@@ -30,7 +30,7 @@
     "@rocketseat/eslint-config": "2.2.2",
     "@types/cron": "2.4.0",
     "@types/node": "20.11.17",
-    "@types/oracledb": "6.0.4",
+    "@types/oracledb": "6.2.0",
     "dotenv": "16.4.2",
     "eslint": "8.56.0",
     "tsup": "8.0.1",
