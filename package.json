@@ -27,7 +27,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "2.1.0",
+    "@rocketseat/eslint-config": "2.2.2",
     "@types/cron": "2.4.0",
     "@types/node": "20.11.17",
     "@types/oracledb": "6.0.4",
