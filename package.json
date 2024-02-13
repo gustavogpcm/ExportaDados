@@ -31,7 +31,7 @@
     "@types/cron": "2.4.0",
     "@types/node": "20.11.17",
     "@types/oracledb": "6.2.0",
-    "dotenv": "16.4.2",
+    "dotenv": "16.4.3",
     "eslint": "8.56.0",
     "tsup": "8.0.2",
     "tsx": "4.7.1",
