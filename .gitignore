@@ -5,3 +5,7 @@ dist
 debug
 .env_prd
 .env_hml
+local-database
+local-database.ts
+logs
+db.sqlite
