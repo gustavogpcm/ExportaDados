@@ -24,6 +24,7 @@ export class SqlLiteRecordAssistencialRepository
 
   async recordCidSecundario({ cidSecundario }): Promise<void> {
     try {
+      console.log(cidSecundario)
       await database('DRG_CID_SECUNDARIO').insert(cidSecundario)
     } catch (error) {
       console.error('Error inserting DrgRegistroMedico')

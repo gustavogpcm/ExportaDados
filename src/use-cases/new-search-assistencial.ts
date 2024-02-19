@@ -146,10 +146,12 @@ export class SearchAssistencial {
           await this.recordAssistencialRepository.recordMedico({ medico })
         }
         for (const cidSecundarioItens of registro.cidSecundario) {
+          const codigo = cidSecundarioItens.codigo
+          const descricao = cidSecundarioItens.descricao
           const cidSecundario = {
             ID_INTEGRA,
-            CODIGO_CIDSECUN: cidSecundarioItens.codigo || null,
-            DESCRICAO_CIDSECUN: cidSecundarioItens.descricao || null,
+            CODIGO_CIDSECUN: codigo || null,
+            DESCRICAO_CIDSECUN: descricao || null,
           }
           await this.recordAssistencialRepository.recordCidSecundario({
             cidSecundario,
@@ -204,8 +206,9 @@ export class SearchAssistencial {
             ESPECIALIDADE_MEDICO_CTI: ctiItens.medico?.especialidade || null,
             CODIGO_HOSPITAL_CTI: ctiItens.hospital?.codigo || null,
             NOME_HOSPITAL_CTI: ctiItens.hospital?.nome || null,
-            CODIGO_CIDPRINCIPAL_CTI: ctiItens.cidPrincipal || null,
-            DESCRICAO_CIDPRINCIPAL_CTI: ctiItens.descricaoCidPrincipal || null,
+            CODIGO_CIDPRINCIPAL_CTI: ctiItens.cidPrincipal?.codigo || null,
+            DESCRICAO_CIDPRINCIPAL_CTI:
+              ctiItens.descricaoCidPrincipal?.descricao || null,
             LEITO_CTI: ctiItens.leito || null,
           }
           await this.recordAssistencialRepository.recordCti({
