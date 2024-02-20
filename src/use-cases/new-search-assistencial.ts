@@ -6,7 +6,6 @@ import {
   SearchAssistencialDataRequest,
   SearchAssistencialDataResponse,
 } from '../models/Assistencial'
-import console from 'console'
 
 export class SearchAssistencial {
   constructor(
@@ -24,7 +23,6 @@ export class SearchAssistencial {
     try {
       for (const registro of assistencial.items) {
         const ID_INTEGRA: number = parseInt(registro.id)
-        console.log('ID: ' + ID_INTEGRA)
         const send = {
           ID_INTEGRA: registro.id,
           SITUACAO: registro?.situacao || null,
