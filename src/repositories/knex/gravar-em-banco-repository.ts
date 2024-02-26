@@ -10,7 +10,7 @@ export class KnexRecordAssistencialRepository
       const isValidDate = (dateString) => {
         return dateString && !isNaN(new Date(dateString).getTime())
       }
-
+      console.log('DataExecucao: ' + send.DATAEXECUCAO_PROCEDIMENTO)
       const OBJETO = {
         ID,
         DT_PROCESSADO: new Date(),
@@ -87,8 +87,8 @@ export class KnexRecordAssistencialRepository
         ESPECIALIDADE_MEDICO: send.ESPECIALIDADE_MEDICO || null,
         MEDICORESPONSAVEL_MEDICO: send.MEDICORESPONSAVEL_MEDICO || null,
         TIPOATUACAO_MEDICO: send.TIPOATUACAO_MEDICO || null,
-        DATAEXECUCAO_PROCEDIMENTO: isValidDate(send.DATAEXECUCAO_PROCEDIMENTO)
-          ? new Date(send.DATAEXECUCAO_PROCEDIMENTO)
+        DATAEXECUCAO_PROCEDIMENTO: isValidDate(send?.DATAEXECUCAO_PROCEDIMENTO)
+          ? new Date(send?.DATAEXECUCAO_PROCEDIMENTO)
           : null,
         NOME_MEDICO_PROCEDIMENTO: send.NOME_MEDICO_PROCEDIMENTO || null,
         UF_MEDICO_PROCEDIMENTO: send.UF_MEDICO_PROCEDIMENTO || null,

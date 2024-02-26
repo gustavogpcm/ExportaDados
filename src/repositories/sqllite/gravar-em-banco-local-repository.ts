@@ -264,46 +264,46 @@ export class SqlLiteRecordAssistencialRepository
   async deleteAllAssistencial(ID: number): Promise<void> {
     try {
       await database('DRG_REGISTRO_IAG')
-        .delete('*')
+        .delete()
         .where(' DRG_REGISTRO_IAG.ID_INTEGRA', ID)
 
       await database('DRG_REGISTRO_MEDICO')
-        .delete('*')
+        .delete()
         .where(' DRG_REGISTRO_MEDICO.ID_INTEGRA', ID)
 
       await database('DRG_CID_SECUNDARIO')
-        .delete('*')
+        .delete()
         .where(' DRG_CID_SECUNDARIO.ID_INTEGRA', ID)
 
       await database('DRG_PROCEDIMENTO')
-        .delete('*')
+        .delete()
         .where('DRG_PROCEDIMENTO.ID_INTEGRA', ID)
 
       await database('DRG_MEDICO_PROCEDIMENTO')
-        .delete('*')
+        .delete()
         .where('DRG_MEDICO_PROCEDIMENTO.ID_INTEGRA', ID)
 
-      await database('DRG_CTI').delete('*').where('DRG_CTI.ID_INTEGRA', ID)
+      await database('DRG_CTI').delete().where('DRG_CTI.ID_INTEGRA', ID)
 
-      await database('DRG_RN').delete('*').where('DRG_RN.ID_INTEGRA', ID)
+      await database('DRG_RN').delete().where('DRG_RN.ID_INTEGRA', ID)
 
       await database('DRG_ALTA_ADMINISTRATIVA')
-        .delete('*')
+        .delete()
         .where('DRG_ALTA_ADMINISTRATIVA.ID_INTEGRA', ID)
 
       await database('DRG_ANALISE_CRITICA')
-        .delete('*')
+        .delete()
         .where('DRG_ANALISE_CRITICA.ID_INTEGRA', ID)
 
       await database('DRG_SUPORTE_VENTILATORIO')
-        .delete('*')
+        .delete()
         .where('DRG_SUPORTE_VENTILATORIO.ID_INTEGRA', ID)
 
       await database('DRG_SONDA_VESICAL_DEDEMORA')
-        .delete('*')
+        .delete()
         .where('DRG_SONDA_VESICAL_DEDEMORA.ID_INTEGRA', ID)
       await database('DRG_CATETER_VASCULAR_CENTRAL')
-        .delete('*')
+        .delete()
         .where('DRG_CATETER_VASCULAR_CENTRAL.ID_INTEGRA', ID)
     } catch (error) {
       console.error('Error inserting DrgRegistroMedico')
