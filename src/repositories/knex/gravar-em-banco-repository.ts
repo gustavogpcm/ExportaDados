@@ -13,6 +13,7 @@ export class KnexRecordAssistencialRepository
 
       const OBJETO = {
         ID,
+        DT_PROCESSADO: new Date(),
         ID_INTEGRA: send.ID_INTEGRA,
         SITUACAO: send.SITUACAO,
         CARATERINTERNACAO: send.CARATERINTERNACAO || null,
