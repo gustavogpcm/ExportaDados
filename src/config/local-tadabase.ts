@@ -150,7 +150,7 @@ knexInstance.schema
   })
   .createTableIfNotExists('DRG_ANALISE_CRITICA', function (table) {
     table.integer('ID_INTEGRA')
-    table.string('DATAANALISE_ANALICRIT')
+    table.date('DATAANALISE_ANALICRIT')
     table.string('ANALISECRITICA_ANALICRIT')
   })
   .createTableIfNotExists('DRG_SUPORTE_VENTILATORIO', function (table) {
