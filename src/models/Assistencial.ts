@@ -267,3 +267,159 @@ export interface CAPSDRGREGISTROIAG {
   DATAINICIAL_CAUSAEXT: Date | null
   DATAFINAL_CAUSAEXT: Date | null
 }
+export interface SearchAssistencialDataRequest {
+  dataUltimaAlteracao: string
+  ids?: string
+  numeroAtendimento?: string[]
+  numeroAutorizacao?: string[]
+  dataAltaInicial?: string
+  dataAltaFinal?: string
+  dataInternacaoInicial?: string
+  dataInternacaoFinal?: string
+  dataCadastroInicial?: string
+  dataCadastroFinal?: string
+  dataCadastroAltaInicial?: string
+  dataCadastroAltaFinal?: string
+  cidPrincipal?: string[]
+  cidPrincipalCapitulo?: string[]
+  cidSecundario?: string[]
+  cidSecundarioCapitulo?: string[]
+  procedimento?: string[]
+  classeDRG?: string[]
+  situacao?: string
+  page?: number
+}
+export interface SearchAssistencialDataResponse {
+  id: number
+  situacao: string | null
+  caraterinternacao: string | null
+  numerooperadora: string | null
+  numeroregistro: string | null
+  numeroatendimento: string | null
+  numeroautorizacao: string | null
+  datainternacao: Date | null
+  dataautorizacao: Date | null
+  dataalta: Date | null
+  condicaoalta: string | null
+  recaida: string | null
+  origemreadmissao30dias: string | null
+  origemrecaida30dias: string | null
+  idinternacaorecaida: number | null
+  idorigemrecaida: number | null
+  totalhorasventilacaomecanica: string | null
+  modalidadeinternacao: string | null
+  datacadastroalta: Date | null
+  usuariocadastroalta: string | null
+  correcaoregistro: string | null
+  usuariocorrecao: string | null
+  dataultimorecalculo: Date | null
+  internadooutrasvezes: string | null
+  hospitalinternacaoanterior: string | null
+  reinternacao: string | null
+  dataprevistaalta: Date | null
+  permanenprevistainter: number | null
+  permanenciaprevistanaalta: number | null
+  permanenciareal: number | null
+  percentil: string | null
+  procedencia: string | null
+  ventilacaomecania: string | null
+  datacadastro: Date | null
+  usuariocadastro: string | null
+  usuariocadastroalta2: string | null
+  dataultimaalteracao: Date | null
+  usuarioultimaalteracao: string | null
+  codigo_instituicao: number | null
+  nome_instituicao: string | null
+  codigo_hospital: number | null
+  nome_hospital: string | null
+  codigopaciente_beneficiario: string | null
+  plano_beneficiario: string | null
+  datanascimento_beneficiario: Date | null
+  sexo_beneficiario: string | null
+  idadeemanos_beneficiario: number | null
+  idadeemmeses_beneficiario: number | null
+  idadeemdias_beneficiario: number | null
+  nome_medico: string | null
+  uf_medico: string | null
+  crm_medico: string | null
+  especialidade_medico: string | null
+  medicoresponsavel_medico: string | null
+  tipoatuacao_medico: string | null
+  dataexecucao_procedimento: Date | null
+  nome_medico_procedimento: string | null
+  uf_medico_procedimento: string | null
+  crm_medico_procedimento: string | null
+  especialid_medico_proced: string | null
+  tipatuacao_medico_proced: string | null
+  datainicial_cti: Date | null
+  datafinal_cti: Date | null
+  condicaoalta_cti: string | null
+  tipo_cti: string | null
+  permanenciaprevistanaalta_cti: number | null
+  permanenciareal_cti: number | null
+  nome_medico_cti: string | null
+  uf_medico_cti: string | null
+  crm_medico_cti: string | null
+  especialidade_medico_cti: string | null
+  codigo_hospital_cti: number | null
+  nome_hospital_cti: string | null
+  codigo_cidprincipal_cti: string | null
+  descricao_cidprincipal_cti: string | null
+  codigo_drgbrasilrefinado_cti: string | null
+  descri_drgbrasilrefinado_cti: string | null
+  tipo_drgbrasilrefinado_cti: string | null
+  codigo_mdc_cti: string | null
+  descricao_mdc_cti: string | null
+  leito_cti: string | null
+  pesonascimento_rn: number | null
+  idadegestacional_rn: number | null
+  comprimento_rn: number | null
+  sexo_rn: string | null
+  nascidovivo_rn: string | null
+  tocotraumatismo_rn: string | null
+  apgar_rn: string | null
+  apgarquintominuto_rn: number | null
+  alta48horas_rn: string | null
+  codigo_condadqui: string | null
+  descricao_condadqui: string | null
+  dataocorrencia_condadqui: Date | null
+  datamanifestacao_condadqui: Date | null
+  medico_condadqui: string | null
+  grave_condadqui: string | null
+  numeroatend_altaadmin: string | null
+  numeroautorizacao_altaadmin: string | null
+  dataautorizacao_altaadmin: Date | null
+  dataatendiminicial_altaadmin: Date | null
+  dataatendimfinal_altaadmin: Date | null
+  dataanalise_analicrit: Date | null
+  analisecritica_analicrit: string | null
+  tipo_supventil: string | null
+  local_supventil: string | null
+  datainicial_supventil: Date | null
+  datafinal_supventil: Date | null
+  codigo_cidprinc: string | null
+  descricao_cidprinc: string | null
+  sensivelcuidadprima_cidprinc: string | null
+  codigo_cidsecun: string | null
+  descricao_cidsecun: string | null
+  sondavesicaldedemora: string | null
+  catetervascularcentral: string | null
+  classificacaorobson_partadeq: string | null
+  drgadmissional: string | null
+  causaexterna: string | null
+  cagrave: string | null
+  gerenciavelatencaoprimaria: string | null
+  gerenciavelemergencia: string | null
+  idosofragil: string | null
+  codigo_drgbrasilrefin: string | null
+  descricao_drgbrasilrefin: string | null
+  tipo_drgbrasilrefin: string | null
+  peso_drgbrasilrefin: number | null
+  codigo_mdc_drgbrasilrefin: string | null
+  descricao_mdc_drgbrasilrefin: string | null
+  leito: string | null
+  descricao_causaext: string | null
+  tempo_causaext: string | null
+  datainicial_causaext: Date | null
+  datafinal_causaext: Date | null
+}
