@@ -100,6 +100,8 @@ knexInstance.schema
   .createTableIfNotExists('DRG_PROCEDIMENTO', function (table) {
     table.integer('ID_INTEGRA')
     table.string('ID_PROCEDIMENTO')
+    table.string('CODIGO_PROCEDIMENTO')
+    table.string('NOME_PROCEDIMENTO')
     table.date('DATAEXECUCAO_PROCEDIMENTO')
   })
   .createTableIfNotExists('DRG_MEDICO_PROCEDIMENTO', function (table) {

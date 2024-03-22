@@ -184,6 +184,8 @@ export class KnexRecordAssistencialRepository
         DATAFINAL_CAUSAEXT: isValidDate(send?.DATAFINAL_CAUSAEXT)
           ? new Date(send?.DATAFINAL_CAUSAEXT)
           : null,
+        CODIGO_PROCEDIMENTO: send?.CODIGO_PROCEDIMENTO || null,
+        NOME_PROCEDIMENTO: send?.NOME_PROCEDIMENTO || null,
       }
 
       await writeLog(OBJETO)

@@ -182,6 +182,8 @@ export class SearchAssistencial {
           for (const procedimentoItens of registro.procedimento) {
             const procedimento = {
               ID_INTEGRA,
+              NOME_PROCEDIMENTO: procedimentoItens.nome,
+              CODIGO_PROCEDIMENTO: procedimentoItens.codigo,
               ID_PROCEDIMENTO: procedimentoItens.codigo,
               DATAEXECUCAO_PROCEDIMENTO: procedimentoItens.dataExecucao
                 ? new Date(procedimentoItens.dataExecucao)
